@@ -13,12 +13,7 @@ jobs:
         with:
           github-token: ${{ secrets.TOKEN }}
           script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `
-### **Production Readiness Checklist** 🛡️
+            const body = `### **Production Readiness Checklist** 🛡️
 
 - [ ] **Overall Impact**:  
   _Please describe the overall impact:_  
@@ -45,6 +40,11 @@ jobs:
   _If yes, please describe the customer impact:_  
 
 - [ ] **Rollback and Urgency**:  
-  _Does this change support rollback in case of issues, and is there any urgency associated with it?_  
-`
-            })
+  _Does this change support rollback in case of issues, and is there any urgency associated with it?_`;
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });
