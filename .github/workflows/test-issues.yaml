@@ -17,5 +17,34 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "👋 Thanks for opening this issue! We’ll review it as soon as possible."
+              body: `
+### **Production Readiness Checklist** 🛡️
+
+- [ ] **Overall Impact**:  
+  _Please describe the overall impact:_  
+
+- [ ] **Impact on Documentation**:  
+  _Does this improvement or issue impact the Asgardeo documentation? (If available, attach the relevant task/PR for the documentation update.)_  
+
+- [ ] **Peer Reviews**:  
+  _Has the change been reviewed by peers or in early reviews?_  
+
+- [ ] **Unit Test Coverage**:  
+  _Does the change include sufficient unit test coverage?_  
+
+- [ ] **E2E/Integration Test Coverage**:  
+  _Is there adequate end-to-end (E2E) and integration test coverage for the change?_  
+  _Sub-Task Updates: Have the relevant sub-tasks been updated to reflect completion on the stage (e.g., updating PE task status to "ready to deploy on stage")?_  
+
+- [ ] **Behavioral Changes**:  
+  _Are there any behavioral changes associated with this change?_  
+  _If yes, please describe:_  
+
+- [ ] **Customer-Specific Improvements**:  
+  _Is this change related to any customer-specific improvements?_  
+  _If yes, please describe the customer impact:_  
+
+- [ ] **Rollback and Urgency**:  
+  _Does this change support rollback in case of issues, and is there any urgency associated with it?_  
+`
             })
