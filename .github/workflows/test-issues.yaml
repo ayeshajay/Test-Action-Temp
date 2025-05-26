@@ -7,44 +7,38 @@ on:
 jobs:
   comment:
     runs-on: ubuntu-latest
+    env:
+      CHECKLIST_BODY: |
+        ### **Production Readiness Checklist** 🛡️\n
+        - [ ] **Overall Impact**:\n
+          _Please describe the overall impact:_\n\n
+        - [ ] **Impact on Documentation**:\n
+          _Does this improvement or issue impact the Asgardeo documentation? (If available, attach the relevant task/PR for the documentation update.)_\n\n
+        - [ ] **Peer Reviews**:\n
+          _Has the change been reviewed by peers or in early reviews?_ \n\n
+        - [ ] **Unit Test Coverage**:\n
+          _Does the change include sufficient unit test coverage?_ \n\n
+        - [ ] **E2E/Integration Test Coverage**:\n
+          _Is there adequate end-to-end (E2E) and integration test coverage for the change?_ \n
+          _Sub-Task Updates: Have the relevant sub-tasks been updated to reflect completion on the stage (e.g., updating PE task status to "ready to deploy on stage")?_ \n\n
+        - [ ] **Behavioral Changes**:\n
+          _Are there any behavioral changes associated with this change?_ \n
+          _If yes, please describe:_ \n\n
+        - [ ] **Customer-Specific Improvements**:\n
+          _Is this change related to any customer-specific improvements?_ \n
+          _If yes, please describe the customer impact:_ \n\n
+        - [ ] **Rollback and Urgency**:\n
+          _Does this change support rollback in case of issues, and is there any urgency associated with it?_ 
+
     steps:
       - name: Add a comment to the issue
         uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.TOKEN }}
           script: |
-            const body = `### **Production Readiness Checklist** 🛡️
-
-- [ ] **Overall Impact**:  
-  _Please describe the overall impact:_  
-
-- [ ] **Impact on Documentation**:  
-  _Does this improvement or issue impact the Asgardeo documentation? (If available, attach the relevant task/PR for the documentation update.)_  
-
-- [ ] **Peer Reviews**:  
-  _Has the change been reviewed by peers or in early reviews?_  
-
-- [ ] **Unit Test Coverage**:  
-  _Does the change include sufficient unit test coverage?_  
-
-- [ ] **E2E/Integration Test Coverage**:  
-  _Is there adequate end-to-end (E2E) and integration test coverage for the change?_  
-  _Sub-Task Updates: Have the relevant sub-tasks been updated to reflect completion on the stage (e.g., updating PE task status to "ready to deploy on stage")?_  
-
-- [ ] **Behavioral Changes**:  
-  _Are there any behavioral changes associated with this change?_  
-  _If yes, please describe:_  
-
-- [ ] **Customer-Specific Improvements**:  
-  _Is this change related to any customer-specific improvements?_  
-  _If yes, please describe the customer impact:_  
-
-- [ ] **Rollback and Urgency**:  
-  _Does this change support rollback in case of issues, and is there any urgency associated with it?_`;
-
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body
+              body: process.env.CHECKLIST_BODY
             });
